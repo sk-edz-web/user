@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page - Sk Edz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Profile Header */
+        .profile-header {
+            display: flex;
+            align-items: center;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-bottom: 30px;
+        }
+        
+        .profile-pic {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 25px;
+            border: 3px solid #e63946;
+        }
+        
+        .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .profile-info h1 {
+            font-size: 1.8rem;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        
+        .profile-info .username {
+            color: #636e72;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .stat {
+            text-align: center;
+        }
+        
+        .stat .number {
+            font-weight: bold;
+            font-size: 1.3rem;
+            color: #e63946;
+        }
+        
+        .stat .label {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+        
+         /* Frame Card Styles (Same as frames page) */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+        }
+        
+        .product-card-image {
+            position: relative;
+            overflow: hidden;
+            height: 250px;
+        }
+        
+        .product-card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-card:hover .product-card-image img {
+            transform: scale(1.05);
+        }
+        
+        .product-card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: #ff4757;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 2;
+        }
+        
+        .product-card-wishlist {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ff4757;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 2;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .product-card-wishlist:hover {
+            background: #ff4757;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .product-card-content {
+            padding: 25px;
+        }
+        
+        .product-card-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: #2f3542;
+        }
+        
+        .product-card-description {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            height: 42px;
+            overflow: hidden;
+        }
+        
+        .product-card-price {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .product-card-current-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ff4757;
+            margin-right: 10px;
+        }
+        
+        .product-card-original-price {
+            font-size: 16px;
+            color: #999;
+            text-decoration: line-through;
+        }
+        
+        .product-card-save {
+            color: #4CAF50;
+            font-weight: 600;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+        
+        .product-card-rating {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .product-card-stars {
+            color: #FFD700;
+            margin-right: 10px;
+        }
+        
+        .product-card-reviews {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .product-card-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .product-card-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .product-card-btn-primary {
+            background: linear-gradient(135deg, #ff6b81, #ff4757);
+            color: white;
+        }
+        
+        .product-card-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+        }
+        
+        .product-card-btn-secondary {
+            background: #f1f2f6;
+            color: #2f3542;
+        }
+        
+        .product-card-btn-secondary:hover {
+            background: #e2e8f0;
+        }
+        
+        
+        
+        /* Contact Section */
+        .contact-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+            text-align: center;
+        }
+        
+        .contact-section h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .contact-info {
+            font-size: 1.2rem;
+            color: #e63946;
+            font-weight: bold;
+            margin-bottom: 20px;
+            padding: 12px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            letter-spacing: 1px;
+        }
+        
+        .contact-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #2d3436;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+        
+        .contact-btn:hover {
+            background-color: #1a1e20;
+        }
+        
+        .contact-btn i {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dfe6e9;
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .profile-pic {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .profile-stats {
+                justify-content: center;
+                margin-top: 15px;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="profile-pic">
+                <img src="nf.logo.jpeg" alt="Profile Picture">
+            </div>
+            
+            <div class="profile-info">
+                <h1>nowfal_efx</h1>
+                <div class="username">@nowfal_efx</div>
+                <p>editor.</p>
+                
+                <div class="profile-stats">
+                    <div class="stat">
+                        <div class="number">1</div>
+                        <div class="label">Products</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number">0.0</div>
+                        <div class="label">Rating</div>
+                    </div>
+                    <div class="stat">
+                        <div class="number">0</div>
+                        <div class="label">total sell</div>
+                    </div>
+                    <div class="stat">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Products Section -->
+        <!-- Product 1: After Effect CC -->
+<div class="product-card">
+    <div class="product-card-image">
+        <div class="product-card-badge">creator @nowfal_efx</div>
+        <div class="product-card-wishlist" data-product="Advertisement">
+            <i class="far fa-heart"></i>
+        </div>
+        <img src="nowfal.cc.jpg" alt="After Effect CC">
+    </div>
+    <div class="product-card-content">
+        <h3 class="product-card-title">After effect cc</h3>
+        <p class="product-card-description">Ae 4k cc at just ₹299 this helps to enhance your video quality.</p>
+        <div class="product-card-price">
+            <span class="product-card-current-price">₹299</span>
+        </div>
+        <div class="product-card-rating">
+        
+        </div>
+        <div class="product-card-buttons">
+            <a href="https://wa.me/919345306572?text=Hello%20SK%20Editz%2C%20I%20want%20to%20buy%3A%0A%0A%F0%9F%93%96%20*Product%3A*%20After%20Effect%20CC%0A%F0%9F%92%B0%20*Price%3A*%20%E2%82%B9299%0A%F0%9F%91%A8%E2%80%8D%F0%9F%92%BB%20*Creator%3A*%20%40nowfal_efx%0A%F0%9F%93%9D%20*Description%3A*%20Ae%204k%20cc%20video%20enhancement%0A%0A%F0%9F%91%A4%20*My%20Details%3A*%0A%E2%9C%85%20Name%3A%20%0A%E2%9C%85%20Contact%3A%20%0A%E2%9C%85%20Location%3A%20%0A%0A%F0%9F%93%9D%20*Requirements%3A*%20" 
+               class="product-card-btn product-card-btn-primary whatsapp-buy-btn" 
+               target="_blank">
+                <i class="fab fa-whatsapp"></i> Buy on WhatsApp
+            </a>
+        </div>
+    </div>
+</div>
+
+        
+        
+        
+        <footer>
+            
+        </footer>
+    </div>
+
+    <script>
+        // Add to Cart functionality
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const productTitle = this.closest('.product-card').querySelector('.product-title').textContent;
+                const productPrice = this.closest('.product-card').querySelector('.current-price').textContent;
+                
+                // Show a simple alert (in a real app, this would add to a shopping cart)
+                alert(`Added "${productTitle}" to cart for ${productPrice}`);
+                
+                // Button feedback
+                const originalText = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-check"></i> Added!';
+                this.style.backgroundColor = '#2d3436';
+                
+                setTimeout(() => {
+                    this.innerHTML = originalText;
+                    this.style.backgroundColor = '#e63946';
+                }, 1500);
+            });
+        });
+        
+        // Contact button functionality
+        document.querySelector('.contact-btn').addEventListener('click', function() {
+            alert('Calling +1 (934) 530-6572...');
+        });
+    </script>
+</body>
+</html>
